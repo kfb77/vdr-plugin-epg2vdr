@@ -86,7 +86,7 @@ class cEpgHandlerInstance
 
       cEpgHandlerInstance()
       {
-         tell(0, "Handler: Init handler instance for thread %d", cThread::ThreadId());
+         tell(2, "Handler: Init handler instance for thread %d", cThread::ThreadId());
       }
 
       virtual ~cEpgHandlerInstance() { exitDb(); }
@@ -108,7 +108,7 @@ class cEpgHandlerInstance
          {
             // try to connect
 
-            tell(0, "Handler: Trying to re-connect to database!");
+            tell(2, "Handler: Trying to re-connect to database!");
             retry++;
 
             if (initDb() != success)
@@ -120,7 +120,7 @@ class cEpgHandlerInstance
             }
 
             retry = 0;
-            tell(0, "Handler: Connection established successfull!");
+            tell(2, "Handler: Connection established successfull!");
          }
 
          return success;

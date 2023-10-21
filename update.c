@@ -149,11 +149,11 @@ int cUpdate::init()
 
    if (lang)
    {
-      tell(0, "Set locale to '%s'", lang);
+      tell(2, "Set locale to '%s'", lang);
 
       if ((strcasestr(lang, "UTF-8") != 0) || (strcasestr(lang, "UTF8") != 0))
       {
-         tell(0, "detected UTF-8");
+         tell(2, "detected UTF-8");
          withutf8 = yes;
       }
    }
@@ -181,7 +181,7 @@ int cUpdate::init()
       return fail;
    }
 
-   tell(0, "Dictionary '%s' loaded", dictPath);
+   tell(2, "Dictionary '%s' loaded", dictPath);
    free(dictPath);
 
    // init database ...
@@ -693,7 +693,7 @@ int cUpdate::initDb()
          getParameter("uuid", "lastEventsUpdateAt", lastEventsUpdateAt);
 
          strftime(buf, 50, "%d.%m.%y %H:%M:%S", localtime(&lastUpdateAt));
-         tell(0, "Info: Last update was at '%s'", buf);
+         tell(2, "Info: Last update was at '%s'", buf);
       }
 
       // register me to the vdrs table
@@ -841,7 +841,7 @@ int cUpdate::checkConnection(int& timeout)
    {
       // try to connect
 
-      tell(0, "Trying to re-connect to database!");
+      tell(2, "Trying to re-connect to database!");
       retryCount++;
 
       if (initDb() != success)
@@ -853,7 +853,7 @@ int cUpdate::checkConnection(int& timeout)
       }
 
       retryCount = 0;
-      tell(0, "Connection established successfull!");
+      tell(2, "Connection established successfull!");
    }
 
    return success;
@@ -1372,7 +1372,7 @@ void cUpdate::Action()
       {
          time_t lastUpdateStartAt = time(0);
 
-         tell(mainActPending ? 0 : 2, "--- EPG '%s' started ---", fullreload ? "full-reload" : mainActPending ? "update" : "refresh");
+         tell(mainActPending ? 2 : 3, "--- EPG '%s' started ---", fullreload ? "full-reload" : mainActPending ? "update" : "refresh");
 
          if (mainActPending)
          {
@@ -1405,7 +1405,7 @@ void cUpdate::Action()
             vdrDb->store();
          }
 
-         tell(mainActPending ? 0 : 2, "--- EPG %s finished ---", fullreload ? "reload" : mainActPending ? "update" : "refresh");
+         tell(mainActPending ? 2 : 3, "--- EPG %s finished ---", fullreload ? "reload" : mainActPending ? "update" : "refresh");
 
          if (Epg2VdrConfig.loglevel > 2)
             connection->showStat("update");
@@ -1686,7 +1686,7 @@ int cUpdate::refreshEpg(const char* forChannelId, int maxTries)
             }
             else if (timer)
             {
-               tell(0, "Info: Timer '%s', has no event anymore", *timer->ToDescr());
+               tell(2, "Info: Timer '%s', has no event anymore", *timer->ToDescr());
             }
 
             count++;
@@ -1898,7 +1898,7 @@ int cUpdate::storePicturesToFs()
    chkDir(path);
    free(path);
 
-   tell(0, "Load images from database");
+   tell(1, "Load images from database");
 
    imageRefDb->clear();
    imageRefDb->setValue("UPDSP", lastUpdateAt);
@@ -1992,7 +1992,7 @@ int cUpdate::storePicturesToFs()
 
    selectAllImages->freeResult();
 
-   tell(0, "Got %d images from database in %ld seconds (%d updates, %d new) and created %d links",
+   tell(2, "Got %d images from database in %ld seconds (%d updates, %d new) and created %d links",
         count, time(0) - start, updated, count-updated, cntLinks);
 
    return dbConnected(yes) ? success : fail;

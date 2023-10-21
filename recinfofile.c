@@ -193,7 +193,7 @@ int cEventDetails::storeToFs(const char* path)
       return fail;
    }
 
-   tell(0, "Storing event details to '%s'", fileName);
+   tell(2, "Storing event details to '%s'", fileName);
 
    // store fields
 

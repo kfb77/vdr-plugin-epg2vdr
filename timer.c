@@ -466,7 +466,7 @@ int cUpdate::performTimerJobs()
 
    timerJobsUpdateTriggered = no;
 
-   tell(0, "Timer requests done, created %d, modified %d, deleted %d in %s",
+   tell(2, "Timer requests done, created %d, modified %d, deleted %d in %s",
         createCount, modifyCount, deleteCount, ms2Dur(cTimeMs::Now()-start).c_str());
 
    return success;
@@ -702,7 +702,7 @@ int cUpdate::updateTimerTable()
    selectMyTimer->freeResult();
 
    if (!cnt && timers->Count())
-      tell(0, "No timer of my uuid found, assuming cleared table and ignoring the known timerids");
+      tell(2, "No timer of my uuid found, assuming cleared table and ignoring the known timerids");
 
    // --------------------------
    // update timers

@@ -72,7 +72,7 @@ int cUpdate::cleanupDeletedRecordings(int force)
    if (recordings->Count() == lastRecordingCount && !force)
       return done;
 
-   tell(0, "Cleanup deleted recordings at database%s", force ? " (forced)" : "");
+   tell(2, "Cleanup deleted recordings at database%s", force ? " (forced)" : "");
 
    // create set of existing recordings (to improve speed)
 
@@ -129,7 +129,7 @@ int cUpdate::cleanupDeletedRecordings(int force)
    connection->commit();
    lastRecordingCount = recordings->Count();
 
-   tell(0, "Info: Marked %d recordings as deleted", delCnt);
+   tell(2, "Info: Marked %d recordings as deleted", delCnt);
 
    return success;
 }
@@ -369,7 +369,7 @@ int cUpdate::updateRecordingTable(int fullReload)
 
    // update
 
-   tell(0, "Updating recording list table");
+   tell(2, "Updating recording list table");
 
    connection->startTransaction();
 
@@ -588,7 +588,7 @@ int cUpdate::updateRecordingTable(int fullReload)
 
    connection->commit();
 
-   tell(0, "Info: Found %d recordings; %d inserted; %d updated and %d directories", count, insCnt, updCnt, dirCnt);
+   tell(2, "Info: Found %d recordings; %d inserted; %d updated and %d directories", count, insCnt, updCnt, dirCnt);
 
    // create info files for new recordings
 

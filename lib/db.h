@@ -758,7 +758,7 @@ class cDbConnection
 
                if (first)
                {
-                  tell(0, "SQL client character now '%s'", mysql_character_set_name(mysql));
+                  tell(2, "SQL client character now '%s'", mysql_character_set_name(mysql));
                   first = no;
                }
             }
